@@ -52,6 +52,7 @@ private JobRepository jobRepository;
                 return ResponseHandler.generateResponse("job is not found", HttpStatus.NOT_FOUND, null);
             }
             List<Application> applications =job.get().getApplication();
+             // last option can add in the list by fetching the data separetlly
             return ResponseHandler.generateResponse("Successfully Fetch applications ", HttpStatus.OK, applications);
         }catch (Exception ex){
             return ResponseHandler.generateResponse(ex.getMessage(), HttpStatus.MULTI_STATUS, null);

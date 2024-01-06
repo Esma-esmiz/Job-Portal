@@ -48,6 +48,6 @@ public class ApplicationController {
         if (jobseeker.isPresent()){
         return applicationService.createApplication(jobId, jobseeker, application, attachment);
     }
-            return applicationService.createApplication(jobId, jobseeker, application, attachment);
+            return applicationService.createApplication(jobId, Optional.empty(), application, attachment);
         }
 }

@@ -1,6 +1,9 @@
 package com.jobportal.FutureJobs.Application;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.jobportal.FutureJobs.Attachment.Attachment;
 import com.jobportal.FutureJobs.Job.Job;
 import com.jobportal.FutureJobs.User.User;
@@ -14,23 +17,24 @@ import java.util.List;
 public class Application {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long id;
+    private Long id;
     @JsonIgnore
-@OneToOne(cascade = CascadeType.ALL)
-@JoinColumn(name = "job")
-       private Job job;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "job")
+    private Job job;
 
-@JsonIgnore
-@ManyToOne(cascade = CascadeType.ALL)
-@JoinColumn(name = "job_seeker_id")
-private User jobSeeker;
-@Column(name = "cover_letter")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "job_seeker_id")
+    private User jobSeeker;
+    @Column(name = "cover_letter")
     private String cover_letter;
-@Column(name = "status")
-private String status;
+    @Column(name = "status")
+    private String status;
 
-           @Column(name = "application_date")
-           private LocalDateTime application_date;
+    @Column(name = "application_date")
+    private LocalDateTime application_date;
     @Column(name = "created_at")
     private LocalDateTime created_at;
     @Column(name = "modified_at")
