@@ -40,20 +40,22 @@ public class SubEmployerController {
     }
 
     @GetMapping
-    @RequestMapping(path = "/account")
-    public ResponseEntity<Object> getSubEmployer(@PathVariable(name = "subemployer") Long subemployer) {
-        return subEmployerService.getSubEmployer(subemployer);
+    @RequestMapping(path = "/{subEmployer}")
+    public ResponseEntity<Object> getSubEmployerById(@PathVariable(name = "subEmployer") Long subemployer) {
+        return subEmployerService.getSubEmployerByID(subemployer);
     }
 
-//    @GetMapping  //do to error of unsatisfied dependency expressed in department_name find query
-//    @RequestMapping(path = "department")
-//    public ResponseEntity<Object> getSubEmployerByDepartment(@RequestParam(name = "department") String department) {
-//        return subEmployerService.getSubEmployerByDepartment(department);
-//    }
+    @GetMapping
+    @RequestMapping(path = "/account/{employer}")
+    public ResponseEntity<Object> getSubEmployerOfEmployer(@PathVariable(name = "employer") Long employerId) {
+        return subEmployerService.getSubEmployerOfEmployer(employerId);
+    }
 
     @PostMapping
-    public ResponseEntity<Object> createSubEmployer(@RequestParam(name = "employer") Long employeer, @Valid @RequestBody SubEmployer subEmployer) {
-        return subEmployerService.createSubEmployer(employeer, subEmployer);
+    public ResponseEntity<Object> createSubEmployer(@RequestParam(name = "employer") Long employer,
+                                                    @Valid @ModelAttribute SubEmployer subEmployer,
+                                                    @RequestParam("profile") MultipartFile profile) {
+        return subEmployerService.createSubEmployer(employer, subEmployer, profile);
     }
 
     @PostMapping(path = "profile-picture/upload")
@@ -72,6 +74,7 @@ public class SubEmployerController {
         }
         return ResponseHandler.generateResponse("invalid attachment input", HttpStatus.MULTI_STATUS, null);
     }
+
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
