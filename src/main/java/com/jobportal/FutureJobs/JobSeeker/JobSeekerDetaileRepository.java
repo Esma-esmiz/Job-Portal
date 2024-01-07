@@ -1,4 +1,4 @@
-package com.jobportal.FutureJobs.Job;
+package com.jobportal.FutureJobs.JobSeeker;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -7,7 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface JobCategoryRepository extends JpaRepository<JobCategory, Long> {
-    @Query
-    Optional<JobCategory> findJobCategoryByTitle(String title);
+public interface JobSeekerDetaileRepository extends JpaRepository<JobSeekerDetaile, Long> {
 }

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
+
 @RestController
 @RequestMapping(path = "api/v1/message")
 public class MessageController {
@@ -27,6 +29,12 @@ public class MessageController {
         return messageService.getMessageById(messageId);
     }
 
+    @GetMapping(path = "box")
+    public ResponseEntity<Object> getMessageBox(@RequestParam("sender") Long sender,
+                                                @RequestParam(name = "receiver") Long receiver ){
+        return messageService.getMessageBox(sender, receiver);
+    }
+
     @PostMapping
     public ResponseEntity<Object> createMessage(
             @RequestParam("fromuser") Long fromuser,
@@ -34,5 +42,6 @@ public class MessageController {
             @RequestBody Message message){
         return messageService.createMessage(fromuser, touser,message);
     }
+
 }
 
