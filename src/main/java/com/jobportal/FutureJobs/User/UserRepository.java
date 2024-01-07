@@ -14,4 +14,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query
     List<User> findUserByType(String type);
 
+    @Query()
+    Optional<User> findUserByNameAndType(String name, String type);
+
 }
