@@ -31,9 +31,9 @@ public class JobCategoryService {
     public ResponseEntity<Object> getJobCategoryById(Long id){
         Optional<JobCategory> categoris = jobCategoryRepository.findById(id);
         if (categoris.isPresent()){
-            return ResponseHandler.generateResponse("All Avilable Job Categories", HttpStatus.OK, categoris);
+            return ResponseHandler.generateResponse("Job Category", HttpStatus.OK, categoris);
         }
-        return ResponseHandler.generateResponse("Job Category not avilable", HttpStatus.OK, null);
+        return ResponseHandler.generateResponse("Job Category not avilabele", HttpStatus.OK, null);
     }
 
     public ResponseEntity<Object> getJobCategoryByTitle(String title){
@@ -57,7 +57,6 @@ public class JobCategoryService {
                  return ResponseHandler.generateResponse("job Category is created successfully " , HttpStatus.OK, status);
         }catch (Exception ex){
             return ResponseHandler.generateResponse(ex.getMessage(), HttpStatus.MULTI_STATUS, null);
-
         }
     }
 
