@@ -1,6 +1,7 @@
 package com.jobportal.FutureJobs.Experience;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jobportal.FutureJobs.Attachment.Attachment;
 import com.jobportal.FutureJobs.User.User;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
@@ -9,6 +10,7 @@ import jakarta.validation.constraints.Past;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "experience")
@@ -60,6 +62,9 @@ public class Experience {
 
     @Column(name = "modified_at")
     private  LocalDateTime modified_at;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "experience")
+    private List<Attachment> attachment;
 
     public Experience() {
     }

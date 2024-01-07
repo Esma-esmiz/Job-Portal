@@ -47,4 +47,16 @@ public class ExperienceController {
 
         return experienceService.createExperience(jobseekerId,experience, file);
     }
+
+    @PostMapping(path = "update/{jobseeker}")
+    public ResponseEntity<Object> updateExperience(@PathVariable(name = "jobseeker") Long jobseeker,
+                                                   @RequestBody Experience experience,
+                                                   @RequestParam(name = "attachment", required = false)MultipartFile file){
+        return experienceService.updateExperience(jobseeker, experience, file);
+    }
+
+    @DeleteMapping(path = "delete")
+    public ResponseEntity<Object> deleteExperience(@PathVariable(name = "delete") Long experienceId){
+        return  experienceService.deleteExperience(experienceId);
+    }
 }
