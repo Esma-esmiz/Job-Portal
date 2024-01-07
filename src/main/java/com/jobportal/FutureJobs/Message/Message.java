@@ -1,44 +1,49 @@
 package com.jobportal.FutureJobs.Message;
 
+import com.jobportal.FutureJobs.Attachment.Attachment;
 import com.jobportal.FutureJobs.User.User;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "message")
 public class Message {
-     @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-             @ManyToOne(cascade = CascadeType.ALL)
-             @JoinColumn(name = "from_user")
-            private User fromUser;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "from_user")
+    private User fromUser;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "to_user")
-     private User toUser;
-            @Valid
-            @Column(name ="subject")
-            private String subject;
-            @Valid
-            @NotNull
-            @Column(name ="body")
-            private String body;
-            @Valid
-            @Column(name ="status")
-            private String status;
+    private User toUser;
+    @Valid
+    @Column(name = "subject")
+    private String subject;
+    @Valid
+    @NotNull
+    @Column(name = "body")
+    private String body;
+    @Valid
+    @Column(name = "status")
+    private String status;
 
     @Column(name = "created_at")
     private LocalDateTime created_at;
     @Column(name = "modified_at")
     private LocalDateTime modified_at;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "message")
+    private List<Attachment> attachment;
 
     public Message() {
     }
+
 
     public Message(Long id, User fromUser, User toUser, String subject, String body, String status) {
         this.id = id;
@@ -112,4 +117,5 @@ public class Message {
     public void setModified_at(LocalDateTime modified_at) {
         this.modified_at = modified_at;
     }
+
 }
